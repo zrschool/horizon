@@ -28,7 +28,7 @@ jinja_env = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
 )
 
-creators = "Asia Collins, Bethelehem Engeda, Isabella Siu, and Zachary Rideaux"
+creators = "Asia Collins, Bethelehem Engeda, Zachary Rideaux, and Isabella Siu"
 
 class GetStartedPage(webapp2.RequestHandler):
     def get(self):
@@ -72,7 +72,8 @@ class UpdateDatabase(webapp2.RequestHandler):
         #     rating = 3.5,
         #     star_keys = [dylan_sprouse_key, cole_sprouse_key, atsuko_kagari_key])
 
-        # lionking2.put()
+        # TODO: 
+        # .put()
         template = jinja_env.get_template("templates/update-database.html")
         self.response.write(template.render())
         self.redirect("/main")
