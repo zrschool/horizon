@@ -10,6 +10,9 @@ handlers:
 - url: /.*
   script: main.app
   login: required
+- url: /UpdateDatabase
+  script: main.app
+  login: required
 
 libraries:
 - name: jinja2
