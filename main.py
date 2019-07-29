@@ -5,6 +5,10 @@ import os
 from google.appengine.ext import ndb
 from google.appengine.api import users
 
+class User(ndb.Model):
+    first_name = ndb.StringProperty()
+    last_name = ndb.StringProperty()
+    email = ndb.StringProperty()
 
 class Movie(ndb.Model):
     """
