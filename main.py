@@ -39,6 +39,7 @@ jinja_env = jinja2.Environment(
 )
 
 creators = "Asia Collins, Bethelehem Engeda, Zachary Rideaux, and Isabella Siu"
+current_user = users.get_current_user()
 
 class GetStartedPage(webapp2.RequestHandler):
     def get(self):
@@ -48,8 +49,6 @@ class GetStartedPage(webapp2.RequestHandler):
         # movie_query = Movie.query().order(-Movie.rating)
         # movies = movie_query.fetch()
 
-        current_user = users.get_current_user()
-        signin_link = users.create_login_url("/")
 
         template_vars = {
             "creators" : creators,
@@ -58,22 +57,35 @@ class GetStartedPage(webapp2.RequestHandler):
 
         template = jinja_env.get_template("templates/get-started.html")
         self.response.write(template.render(template_vars))
+
+
 class LoginPage(webapp2.RequestHandler):
     def get(self):
+
+        email_address = current_user.email()
+        in_database = User.query().filter(User.email==email_address).get()
+        print in_database
+
+        if in_database:
+            print "No New User Added"
+        else:
+            User(
+            email = current_user.email(),
+            interests = [],
+            ).put()
+            print "New User Added"
 
 
         template = jinja_env.get_template("templates/login.html")
         self.response.write(template.render())
         self.redirect("/main")
-        print "LoginPage"
 
-        print("Hello")
+
+
 class MainPage(webapp2.RequestHandler):
     def get(self):
         name = self.request.get("name") or "World"
 
-        current_user = users.get_current_user()
-        signin_link = users.create_login_url("/")
 
         template_vars = {
             "creators" : creators,
