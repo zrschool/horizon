@@ -35,8 +35,8 @@ class GetStartedPage(webapp2.RequestHandler):
         name = self.request.get("name") or "World"
 
 
-        movie_query = Movie.query().order(-Movie.rating)
-        movies = movie_query.fetch()
+        # movie_query = Movie.query().order(-Movie.rating)
+        # movies = movie_query.fetch()
 
         current_user = users.get_current_user()
         signin_link = users.create_login_url("/")
@@ -61,6 +61,8 @@ class MainPage(webapp2.RequestHandler):
             "name" : name,
         }
 
+        current_user
+
         template = jinja_env.get_template("templates/main.html")
         self.response.write(template.render(template_vars))
 
@@ -72,11 +74,14 @@ class UpdateDatabase(webapp2.RequestHandler):
         #     rating = 3.5,
         #     star_keys = [dylan_sprouse_key, cole_sprouse_key, atsuko_kagari_key])
 
-        # TODO: 
-        # .put()
+        # TODO: Make new interest with user input
+        # TODO: .put() the new interest in the database and assign it to the user
+
         template = jinja_env.get_template("templates/update-database.html")
         self.response.write(template.render())
         self.redirect("/main")
+
+        print("Hello")
 
 
 app = webapp2.WSGIApplication([
