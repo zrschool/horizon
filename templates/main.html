@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Project</title>
     <link rel="stylesheet" href="stylesheets/master.css">
+    <link rel="stylesheet" href="stylesheets/main.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,900&display=swap" rel="stylesheet">
   </head>
   <body>
@@ -11,19 +12,29 @@
       Horizon
     </div>
     <div id="body">
-      <div class="contentbox">
+      <div class="contentbox" id="leftbox">
+        <!-- Has form to append an interest to "Your Interests" -->
+        <div id="add-interest-box">
+          Add New Interest:
           <form id="submission" method="post">
-          <!-- TODO: pass this into the python file to make a new attribute/model whenever
-                     it is clicked. also switch to UpdateDatabase page -->
-            <input type="text" name="x" placeholder="Enter a new interest" class="inputbox">
-            <input type="submit" name="submit" value="Submit" class="button">
+            <!-- TODO: pass this into the python file to make a new attribute/model whenever
+            it is clicked. also switch to UpdateDatabase page -->
+            <input type="text" name="input" placeholder="Enter a new interest" class="inputbox">
+            <input type="submit" name="submit" value="Submit" class="button" id="submit">
           </form>
+        </div>
+        <!-- Displays each of user's Interests -->
+        <div id="your-interests-box">
           <p>Your Current Interests:</p>
-          <!-- Probably a Jinja for loop here -->
           <div class="interests">
-            <!-- interest model -->
+            <!-- Probably a Jinja for loop here -->
+            <div id="interest">
+              <!-- interest model -->
+              yeehaw
+            </div>
+            <!-- endloop -->
           </div>
-          <!-- endloop -->
+        </div>
       </div>
       <div class="contentbox" id="rightbox">
         <a href="#" class="button">Test</a><br><br>
