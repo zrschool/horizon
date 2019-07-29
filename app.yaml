@@ -7,14 +7,14 @@ handlers:
   static_dir: stylesheets
 - url: /scripts
   static_dir: scripts
-- url: /.*
-  script: main.app
 - url: /main
   script: main.app
   login: required
 - url: /UpdateDatabase
   script: main.app
   login: required
+- url: /.*
+  script: main.app
 
 libraries:
 - name: jinja2
