@@ -58,7 +58,16 @@ class GetStartedPage(webapp2.RequestHandler):
 
         template = jinja_env.get_template("templates/get-started.html")
         self.response.write(template.render(template_vars))
+class LoginPage(webapp2.RequestHandler):
+    def get(self):
 
+
+        template = jinja_env.get_template("templates/login.html")
+        self.response.write(template.render())
+        self.redirect("/main")
+        print "LoginPage"
+
+        print("Hello")
 class MainPage(webapp2.RequestHandler):
     def get(self):
         name = self.request.get("name") or "World"
@@ -99,4 +108,5 @@ app = webapp2.WSGIApplication([
     ("/", GetStartedPage),
     ("/main", MainPage),
     ("/update-database", UpdateDatabase),
+    ("/login", LoginPage)
 ], debug=True)
