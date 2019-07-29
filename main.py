@@ -6,7 +6,7 @@ from google.appengine.ext import ndb
 from google.appengine.api import users
 
 
-class User(ndb.Model):
+class Profile(ndb.Model):
     email = ndb.StringProperty()
     interests = ndb.KeyProperty(repeated = True)
 
@@ -14,24 +14,6 @@ class User(ndb.Model):
 class Interest(ndb.Model):
     interest_name = ndb.StringProperty()
     interest_description = ndb.StringProperty()
-
-
-class Movie(ndb.Model):
-    """
-    title: string for the movie title
-    length: int for number of minutes
-    rating: float 0.0-5.0 for rating of movie
-    """
-    title = ndb.StringProperty(required=True)
-    runtime = ndb.IntegerProperty(required=True)
-    rating = ndb.FloatProperty(required=False, default=0)
-
-    def describe(self):
-        """
-        return a string describing the movie
-        """
-        return "%s is %d minutes long and has a rating of %f" % (self.title, self.runtime, self.rating)
-
 
 
 jinja_env = jinja2.Environment(
@@ -63,17 +45,17 @@ class LoginPage(webapp2.RequestHandler):
     def get(self):
 
         email_address = current_user.email()
-        in_database = User.query().filter(User.email==email_address).get()
+        in_database = Profile.query().filter(Profile.email==email_address).get()
         print in_database
 
         if in_database:
-            print "No New User Added"
+            print "No New Profile Added"
         else:
-            User(
+            Profile(
             email = current_user.email(),
             interests = [],
             ).put()
-            print "New User Added"
+            print "New Profile Added"
 
 
         template = jinja_env.get_template("templates/login.html")
@@ -100,20 +82,20 @@ class MainPage(webapp2.RequestHandler):
 
 class UpdateDatabase(webapp2.RequestHandler):
     def get(self):
-        # lionking2 = Movie(
-        #     title = "Lion King 2",
-        #     runtime = 122,
-        #     rating = 3.5,
-        #     star_keys = [dylan_sprouse_key, cole_sprouse_key, atsuko_kagari_key])
-
-        # TODO: Make new interest with user input
-        # TODO: .put() the new interest in the database and assign it to the user
-
         template = jinja_env.get_template("templates/update-database.html")
         self.response.write(template.render())
-        self.redirect("/main")
 
         print("Hello")
+
+    def post(self):
+        interest = self.request.get("input-interest")
+        Interest(
+            interest_name = interest,
+            interest_description = "",
+        ).put()
+        self.redirect("/main")
+
+
 
 
 app = webapp2.WSGIApplication([

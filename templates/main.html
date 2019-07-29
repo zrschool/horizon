@@ -13,11 +13,11 @@
     </div>
     <div id="body">
       <div class="contentbox" id="leftbox">
-        {{current_user.user_id()}}
+        Signed in as: {{current_user.email()}} | ID: {{current_user.user_id()}}
         <!-- Has form to append an interest to "Your Interests" -->
         <div id="add-interest-box">
           Add New Interest:
-          <form id="submission" method="get" action="/update-database">
+          <form id="submission" method="post" action="/update-database">
             <!-- TODO: pass this into the python file to make a new attribute/model whenever
             it is clicked. also switch to UpdateDatabase page -->
             <input type="text" name="input-interest" placeholder="Enter a new interest" class="inputbox">
@@ -46,7 +46,7 @@
         <div id="selected-interests-box">
           Your Selected Interests:
           <div class="interests">
-            
+
           </div>
         </div>
         <div id="recommendations-box">
