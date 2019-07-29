@@ -9,6 +9,7 @@ class User(ndb.Model):
     first_name = ndb.StringProperty()
     last_name = ndb.StringProperty()
     email = ndb.StringProperty()
+    id = ndb.IntegerProperty()
 
 class Movie(ndb.Model):
     """
@@ -63,6 +64,7 @@ class MainPage(webapp2.RequestHandler):
         template_vars = {
             "creators" : creators,
             "name" : name,
+            "current_user" : current_user,
         }
 
         current_user
