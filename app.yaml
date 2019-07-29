@@ -9,6 +9,8 @@ handlers:
   static_dir: scripts
 - url: /.*
   script: main.app
+- url: /main
+  script: main.app
   login: required
 - url: /UpdateDatabase
   script: main.app
