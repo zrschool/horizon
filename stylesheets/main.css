@@ -7,13 +7,35 @@
 #your-interests-box {
   background-color: #EEEEEE;
   padding: 20px;
+}
+
+#selected-interests-box {
+  background-color: #FFFFFF;
+  padding: 20px;
   margin-bottom: 20px;
 }
 
+#recommendations-box {
+  background-color: #FFFFFF;
+  padding: 20px;
+}
+
 .interests {
-  padding: 10px;
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+  padding: 12px 5px 12px 5px;
   color: white;
   margin-top: 10px;
   background-color: #212121;
   /* box-shadow: 0 2px 10px rgba(0,0,0,0.5); */
+}
+
+.interest {
+  color: #FFFFFF;
+  padding: 3px 10px 3px 10px;
+  margin: 5px;
+  background-color: #f527b0;
+  /* background-image: linear-gradient(to right, #ff4b2b, #f527b0, #a307eb); */
+  border-radius: 5px;
 }
