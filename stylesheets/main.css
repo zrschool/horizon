@@ -39,3 +39,8 @@
   /* background-image: linear-gradient(to right, #ff4b2b, #f527b0, #a307eb); */
   border-radius: 5px;
 }
+
+#header
+{
+  font: copperplate;
+}
