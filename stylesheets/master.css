@@ -19,6 +19,7 @@ p {
   color: #FFFFFF;
   padding: 10px 0px 10px 0px;
   background-image: linear-gradient(to right, #ff4b2b, #f527b0, #a307eb);
+  font-weight: 400;
 }
 
 #body {
