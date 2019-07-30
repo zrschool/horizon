@@ -116,6 +116,7 @@ class UpdateDatabase(webapp2.RequestHandler):
             already_present = False
             if interest_key in current_profile.selected_interests:
                 already_present = True
+                current_profile.selected_interests.remove(interest_key)
             if already_present == False:
                 current_profile.selected_interests.append(interest_key)
                 print interest_key.get().interest_name + " added to selected interests."
