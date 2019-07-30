@@ -14,7 +14,14 @@ class Interest(ndb.Model):
 
 class Profile(ndb.Model):
     email = ndb.StringProperty()
-    interests = ndb.KeyProperty(kind = Interest, repeated = True)
+    interests = ndb.KeyProperty(
+        kind = Interest,
+        repeated = True
+    )
+    selected_interests = ndb.KeyProperty(
+        kind = Interest,
+        repeated = True,
+    )
 
 jinja_env = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
@@ -85,25 +92,32 @@ class LoginPage(webapp2.RequestHandler):
         self.redirect("/main?key=" + current_profile_key.urlsafe())
 
 class UpdateDatabase(webapp2.RequestHandler):
-    def get(self):
-        template = jinja_env.get_template("templates/update-database.html")
-        self.response.write(template.render())
-
-
     def post(self):
         current_user = users.get_current_user()
-        # Create new interest based on input box
-        input_interest = self.request.get("input-interest")
-        new_interest = Interest(
-            interest_name = input_interest,
-            interest_description = "",
-        )
-        new_interest_key = new_interest.put()
-        # Append new Interest to Profile Interests list
         current_profile = Profile.query().filter(Profile.email==current_user.email()).get()
+        current_profile_key = current_profile.key
+        # Update 'Your Current Interests' with input box
+        input_interest = self.request.get("input-interest")
+        if input_interest:
+            new_interest = Interest(
+                interest_name = input_interest,
+                interest_description = "",
+            )
+            new_interest_key = new_interest.put()
+            # Append new Interest to Profile Interests list
 
-        current_profile.interests.append(new_interest_key)
-        current_profile_key = current_profile.put()
+            current_profile.interests.append(new_interest_key)
+            current_profile_key = current_profile.put()
+        # Put clicked interests in 'Your Selected Interests'
+        # TODO: prevent current selected interests from being selected again
+        interest_key = self.request.get("interest_key")
+        if interest_key:
+            interest_key = ndb.Key(urlsafe=interest_key)
+            current_profile.selected_interests.append(interest_key)
+            current_profile_key = current_profile.put()
+            # print interest_key.get().interest_name
+            # selected_interest = Interest.query().filter(Profile.email==email_address).get()
+
         # Redirect to main
         self.redirect("/main?key=" + current_profile_key.urlsafe())
 
