@@ -35,25 +35,6 @@ class GetStartedPage(webapp2.RequestHandler):
         self.response.write(template.render(template_vars))
 
 
-class LoginPage(webapp2.RequestHandler):
-    def get(self):
-        current_user = users.get_current_user()
-        email_address = current_user.email()
-        current_profile = Profile.query().filter(Profile.email==email_address).get()
-
-        if current_profile:
-            print "No New Profile Added"
-        else:
-            Profile(
-                email = current_user.email(),
-                interests = [],
-            ).put()
-            print "New Profile Added"
-
-        template = jinja_env.get_template("templates/login.html")
-        self.response.write(template.render())
-        self.redirect("/main")
-
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
@@ -79,6 +60,24 @@ class MainPage(webapp2.RequestHandler):
         template = jinja_env.get_template("templates/main.html")
         self.response.write(template.render(template_vars))
 
+class LoginPage(webapp2.RequestHandler):
+    def get(self):
+        current_user = users.get_current_user()
+        email_address = current_user.email()
+        current_profile = Profile.query().filter(Profile.email==email_address).get()
+
+        if current_profile:
+            print "No New Profile Added"
+        else:
+            Profile(
+            email = current_user.email(),
+            interests = [],
+            ).put()
+            print "New Profile Added"
+
+        template = jinja_env.get_template("templates/login.html")
+        self.response.write(template.render())
+        self.redirect("/main")
 
 class UpdateDatabase(webapp2.RequestHandler):
     def get(self):
