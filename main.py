@@ -80,17 +80,15 @@ class UpdateDatabase(webapp2.RequestHandler):
     def post(self):
         current_user = users.get_current_user()
         # Create new interest based on input box
-        interest = self.request.get("input-interest")
+        input_interest = self.request.get("input-interest")
         new_interest = Interest(
-            interest_name = interest,
+            interest_name = input_interest,
             interest_description = "",
         )
         new_interest_key = new_interest.put()
         # Append new Interest to Profile Interests list
         current_profile = Profile.query().filter(Profile.email==current_user.email()).get()
-        print current_profile
-        print current_profile.interests
-        print new_interest_key
+
         current_profile.interests.append(new_interest_key)
         current_profile.put()
         # Redirect to main
