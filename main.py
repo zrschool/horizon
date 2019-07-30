@@ -39,8 +39,13 @@ class MainPage(webapp2.RequestHandler):
     def get(self):
         name = self.request.get("name") or "World"
 
+        profile_key = ndb.Key(urlsafe=self.request.get("key"))
+        current_profile = profile_key.get()
+
         current_user = users.get_current_user()
-        current_profile = Profile.query().filter(Profile.email==current_user.email()).get()
+        # current_profile
+        # Profile.query().filter(Profile.email==current_user.email()).get()
+
 
         template_vars = {
             "creators" : creators,
@@ -50,10 +55,10 @@ class MainPage(webapp2.RequestHandler):
 
         }
 
-        print "Current Profile: "
-        print current_profile
-        print "Current User: "
-        print current_user
+        # print "Current Profile: "
+        # print current_profile
+        # print "Current User: "
+        # print current_user
 
 
         template = jinja_env.get_template("templates/main.html")
@@ -64,19 +69,20 @@ class LoginPage(webapp2.RequestHandler):
         current_user = users.get_current_user()
         email_address = current_user.email()
         current_profile = Profile.query().filter(Profile.email==email_address).get()
+        current_profile_key = ""
 
         if current_profile:
+            current_profile_key = current_profile.key
             print "No New Profile Added"
         else:
-            Profile(
-            email = current_user.email(),
-            interests = [],
-            ).put()
+            current_profile = Profile(
+                email = current_user.email(),
+                interests = [],
+            )
+            current_profile_key = current_profile.put()
             print "New Profile Added"
 
-        template = jinja_env.get_template("templates/login.html")
-        self.response.write(template.render())
-        self.redirect("/main")
+        self.redirect("/main?key=" + current_profile_key.urlsafe())
 
 class UpdateDatabase(webapp2.RequestHandler):
     def get(self):
@@ -97,9 +103,9 @@ class UpdateDatabase(webapp2.RequestHandler):
         current_profile = Profile.query().filter(Profile.email==current_user.email()).get()
 
         current_profile.interests.append(new_interest_key)
-        current_profile.put()
+        current_profile_key = current_profile.put()
         # Redirect to main
-        self.redirect("/main")
+        self.redirect("/main?key=" + current_profile_key.urlsafe())
 
 class AboutUsPage(webapp2.RequestHandler):
     def get(self):

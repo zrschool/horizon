@@ -30,12 +30,10 @@
           <div class="interests">
             <!-- Probably a Jinja for loop here -->
             {% for key in current_profile.interests %}
-
               <!-- When clicked, send to "Selected Interests" and make green -->
               <a href="#" class="interest">
                 <!-- interest model -->
                 {{key.get().interest_name}}
-
               </a>
             {% endfor %}
             <!-- endloop -->
