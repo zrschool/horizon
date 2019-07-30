@@ -31,10 +31,17 @@
             <!-- Probably a Jinja for loop here -->
             {% for key in current_profile.interests %}
               <!-- When clicked, send to "Selected Interests" and make green -->
-              <a href="#" class="interest">
-                <!-- interest model -->
-                {{key.get().interest_name}}
-              </a>
+              <form action="/update-database" method="POST">
+
+                <input type="hidden" name="interest_key" value="{{key.urlsafe()}}"/>
+
+
+                <a href="#" onclick="this.parentNode.submit()" class="interest">
+                  <!-- interest model -->
+                  {{key.get().interest_name}}
+                </a>
+
+              </form>
             {% endfor %}
             <!-- endloop -->
           </div>
@@ -45,6 +52,20 @@
           Your Selected Interests:
           <div class="interests">
 
+            {% for key in current_profile.selected_interests %}
+              <form action="/update-database" method="POST">
+
+                <input type="hidden" name="selected_interest_key" value="{{key.urlsafe()}}"/>
+
+
+                <a href="#" onclick="this.parentNode.submit()" class="interest">
+
+                  <!-- interest model -->
+                  {{key.get().interest_name}}
+                </a>
+
+              </form>
+            {% endfor %}
           </div>
         </div>
         <div id="recommendations-box">
