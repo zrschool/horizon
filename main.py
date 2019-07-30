@@ -25,7 +25,6 @@ creators = "Asia Collins, Bethelehem Engeda, Zachary Rideaux, and Isabella Siu"
 class GetStartedPage(webapp2.RequestHandler):
     def get(self):
         name = self.request.get("name") or "World"
-
         template_vars = {
             "creators" : creators,
             "name" : name,
@@ -102,11 +101,17 @@ class UpdateDatabase(webapp2.RequestHandler):
         # Redirect to main
         self.redirect("/main")
 
+class AboutUsPage(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_env.get_template("templates/about-us.html")
+        self.response.write(template.render())
+
 
 
 app = webapp2.WSGIApplication([
     ("/", GetStartedPage),
     ("/main", MainPage),
     ("/update-database", UpdateDatabase),
-    ("/login", LoginPage)
+    ("/login", LoginPage),
+    ("/aboutus", AboutUsPage),
 ], debug=True)
