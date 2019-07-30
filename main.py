@@ -4,9 +4,6 @@ import jinja2
 import os
 from google.appengine.ext import ndb
 from google.appengine.api import users
-# from google.appengine.api import urlfetch
-# import urllib
-#import json
 
 
 class Profile(ndb.Model):
@@ -80,7 +77,6 @@ class UpdateDatabase(webapp2.RequestHandler):
 
         print("Hello")
 
-<<<<<<< Updated upstream
     def post(self):
         current_user = users.get_current_user()
         # Create new interest based on input box
@@ -99,30 +95,6 @@ class UpdateDatabase(webapp2.RequestHandler):
         self.redirect("/main")
 
 
-=======
-# class MainPage(webapp2.RequestHandler):
-#     def get(self):
-
-# 1. Set up my key and url
- #api_key = AIzaSyB6KsChF3TaIyOij8WIPlXNi_BY63DDYAU
- #base url = 'https://www.googleapis.com/books/v1/volumes?''
- # params {'q': 'Harry Potter',
- # 'api_key': api_key}
- # full_url = base_url + "?" + urllib.urlencode(params)
- #print full_url
-
-# 2. Fetch url
-# books_response = urlfetch.fetch(full_url).content
-
-# 3. Get the JSON response and convert to a dictionary
-#books_dictionary = json.loads(book_response)
-# print 'books_dictionary', books_dictionary
-#
-
-#
-#         template = jinja_env.get_template("templates/main.html")
-#         self.response.write(template.render(template_vars))
->>>>>>> Stashed changes
 
 app = webapp2.WSGIApplication([
     ("/", GetStartedPage),
