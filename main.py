@@ -123,8 +123,12 @@ class UpdateDatabase(webapp2.RequestHandler):
 
 class AboutUsPage(webapp2.RequestHandler):
     def get(self):
+        template_vars = {
+            "creators" : creators,
+            }
+
         template = jinja_env.get_template("templates/about-us.html")
-        self.response.write(template.render())
+        self.response.write(template.render(template_vars))
 
 
 
@@ -133,5 +137,5 @@ app = webapp2.WSGIApplication([
     ("/main", MainPage),
     ("/update-database", UpdateDatabase),
     ("/login", LoginPage),
-    ("/aboutus", AboutUsPage),
+    ("/about-us", AboutUsPage),
 ], debug=True)
