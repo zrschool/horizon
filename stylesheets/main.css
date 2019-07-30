@@ -33,11 +33,14 @@
 
 .interest {
   color: #FFFFFF;
-  padding: 3px 10px 3px 10px;
+  padding: 3px 5px 3px 5px;
   margin: 5px;
   background-color: #f527b0;
   /* background-image: linear-gradient(to right, #ff4b2b, #f527b0, #a307eb); */
   border-radius: 5px;
+  /* margin-top: 100px; */
+  /* margin-bottom: 100px; */
+
 }
 
 #header
