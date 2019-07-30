@@ -113,9 +113,15 @@ class UpdateDatabase(webapp2.RequestHandler):
         interest_key = self.request.get("interest_key")
         if interest_key:
             interest_key = ndb.Key(urlsafe=interest_key)
-            current_profile.selected_interests.append(interest_key)
+            already_present = False
+            if interest_key in current_profile.selected_interests:
+                already_present = True
+            if already_present == False:
+                current_profile.selected_interests.append(interest_key)
+                print interest_key.get().interest_name + " added to selected interests."
+            else:
+                print "Nothing added to selected interests"
             current_profile_key = current_profile.put()
-            print interest_key.get().interest_name + " added to selected interests."
             # selected_interest = Interest.query().filter(Profile.email==email_address).get()
 
         # Redirect to main
