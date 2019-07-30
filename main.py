@@ -6,15 +6,15 @@ from google.appengine.ext import ndb
 from google.appengine.api import users
 
 
-class Profile(ndb.Model):
-    email = ndb.StringProperty()
-    interests = ndb.KeyProperty(repeated = True)
-
 
 class Interest(ndb.Model):
     interest_name = ndb.StringProperty()
     interest_description = ndb.StringProperty()
 
+
+class Profile(ndb.Model):
+    email = ndb.StringProperty()
+    interests = ndb.KeyProperty(kind = Interest, repeated = True)
 
 jinja_env = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
