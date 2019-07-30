@@ -115,7 +115,7 @@ class UpdateDatabase(webapp2.RequestHandler):
             interest_key = ndb.Key(urlsafe=interest_key)
             current_profile.selected_interests.append(interest_key)
             current_profile_key = current_profile.put()
-            # print interest_key.get().interest_name
+            print interest_key.get().interest_name + " added to selected interests."
             # selected_interest = Interest.query().filter(Profile.email==email_address).get()
 
         # Redirect to main
@@ -125,7 +125,7 @@ class AboutUsPage(webapp2.RequestHandler):
     def get(self):
         template_vars = {
             "creators" : creators,
-            }
+        }
 
         template = jinja_env.get_template("templates/about-us.html")
         self.response.write(template.render(template_vars))
