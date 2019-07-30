@@ -1,0 +1,9 @@
+#about-us {
+  background-color: #FFFFFF;
+
+}
+
+#profiles {
+  justify-content: center;
+  flex-flow: row wrap;
+}
