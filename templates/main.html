@@ -31,7 +31,7 @@
             <!-- Probably a Jinja for loop here -->
             {% for key in current_profile.interests %}
               <!-- When clicked, send to "Selected Interests" and make green -->
-              <form action="/update-database" method="POST">
+              <form action="/update-database" method="POST" class="interest">
 
                 <input type="hidden" name="interest_key" value="{{key.urlsafe()}}"/>
 
@@ -53,7 +53,7 @@
           <div class="interests">
 
             {% for key in current_profile.selected_interests %}
-              <form action="/update-database" method="POST">
+              <form action="/update-database" method="POST" class="interest">
 
                 <input type="hidden" name="selected_interest_key" value="{{key.urlsafe()}}"/>
 
@@ -70,6 +70,9 @@
         </div>
         <div id="recommendations-box">
           People With Your Interests Also Like:
+          <div class="interests">
+            <a href="#" class="interest learn-more-button">Learn More</a>
+          </div>
         </div>
         <!-- <a href="#" class="button">Test</a><br><br> -->
       </div>

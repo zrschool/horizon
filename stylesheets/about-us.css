@@ -1,9 +1,11 @@
 #about-us {
   background-color: #FFFFFF;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 #profiles {
   justify-content: center;
   flex-flow: row wrap;
-  padding-bottom: 350px;
+  padding-bottom: 600px;
 }
