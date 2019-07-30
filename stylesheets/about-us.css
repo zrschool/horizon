@@ -5,4 +5,5 @@
 #profiles {
   justify-content: center;
   flex-flow: row wrap;
+  padding-bottom: 350px;
 }
