@@ -60,11 +60,21 @@ class MainPage(webapp2.RequestHandler):
         name = self.request.get("name") or "World"
 
         current_user = users.get_current_user()
+        current_profile = Profile.query().filter(Profile.email==current_user.email()).get()
+
         template_vars = {
             "creators" : creators,
             "name" : name,
             "current_user" : current_user,
+            "current_profile" : current_profile,
+
         }
+
+        print "Current Profile: "
+        print current_profile
+        print "Current User: "
+        print current_user
+
 
         template = jinja_env.get_template("templates/main.html")
         self.response.write(template.render(template_vars))
@@ -75,7 +85,6 @@ class UpdateDatabase(webapp2.RequestHandler):
         template = jinja_env.get_template("templates/update-database.html")
         self.response.write(template.render())
 
-        print("Hello")
 
     def post(self):
         current_user = users.get_current_user()
