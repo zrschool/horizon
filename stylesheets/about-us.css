@@ -5,9 +5,11 @@
 }
 
 #profiles {
-  justify-content: center;
-  flex-flow: row wrap;
+  padding-top: 50px;
   padding-bottom: 150px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
 }
 
 input[type=text], select, textarea {
@@ -38,4 +40,5 @@ input[type=submit]:hover {
   border-radius: 5px;
   background-color: #f2f2f2;
   padding: 20px;
+>>>>>>> ea9b6f23af87283158a244c66269e198f4c31c36
 }
