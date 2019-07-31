@@ -37,8 +37,9 @@ def get_random_profiles(user_profile):
     user_email = user_profile.email
     all_profiles = Profile.query().filter(Profile.email!=user_email).fetch()
     random_profiles = []
-    for i in range(len(all_profiles)):
+    for i in range(3):
         random_profiles.append(all_profiles[random.randrange(len(all_profiles))])
+    print "RANDOM PROFILES: " + str(random_profiles)
     return random_profiles
 
 def compare_interests(user_profile, random_profiles):
@@ -64,7 +65,7 @@ def compare_interests(user_profile, random_profiles):
     # print email_score_pairs
 
     highest_scorer = max(email_score_pairs, key=email_score_pairs.get)
-    # print(highest_scorer, email_score_pairs[highest_scorer])
+    print(highest_scorer, email_score_pairs[highest_scorer])
     highest_scorer_profile = email_profile_pairs.get(highest_scorer)
     return highest_scorer_profile
 
@@ -79,6 +80,7 @@ def get_recommendations(user_profile, highest_scorer_profile):
     for interest in selected_interests:
         if interest in other_users_interests:
             non_mutual_interests.remove(interest)
+
     return non_mutual_interests
 
 def clear_existing_recommendations(current_profile):
