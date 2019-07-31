@@ -5,7 +5,9 @@
 }
 
 #profiles {
-  justify-content: center;
-  flex-flow: row wrap;
+  padding-top: 50px;
+  display: flex;
+  flex-flow: row nowrap;
   padding-bottom: 600px;
+  justify-content: space-around
 }
