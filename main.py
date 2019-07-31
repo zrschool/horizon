@@ -97,17 +97,24 @@ class UpdateDatabase(webapp2.RequestHandler):
         current_profile = Profile.query().filter(Profile.email==current_user.email()).get()
         current_profile_key = current_profile.key
         # Update 'Your Current Interests' with input box
-        input_interest = self.request.get("input-interest")
+        input_interest = self.request.get("input-interest").lower()
         if input_interest:
-            new_interest = Interest(
-                interest_name = input_interest,
-                interest_description = "",
-            )
-            new_interest_key = new_interest.put()
+            interest = Interest.query().filter(Interest.interest_name == input_interest).get()
+            print interest
+            if interest:
+                interest_key = interest.key
+            else:
+                interest = Interest(
+                    interest_name = input_interest,
+                    interest_description = "",
+                )
+                interest_key = interest.put()
             # Append new Interest to Profile Interests list
+            if interest_key not in current_profile.interests:
+                current_profile.interests.append(interest_key)
+                current_profile_key = current_profile.put()
 
-            current_profile.interests.append(new_interest_key)
-            current_profile_key = current_profile.put()
+
         # Put clicked interests in 'Your Selected Interests'
         # TODO: prevent current selected interests from being selected again
         interest_key = self.request.get("interest_key")
