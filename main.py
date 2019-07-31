@@ -2,6 +2,7 @@ import webapp2
 import logging
 import jinja2
 import os
+import random
 from google.appengine.ext import ndb
 from google.appengine.api import users
 
@@ -9,6 +10,7 @@ from google.appengine.api import users
 class Interest(ndb.Model):
     interest_name = ndb.StringProperty()
     interest_description = ndb.StringProperty()
+
 
 class Profile(ndb.Model):
     email = ndb.StringProperty()
@@ -22,10 +24,21 @@ class Profile(ndb.Model):
     )
 
 
+def compare_users(user_profile):
+    """
+    Takes a profile (user_profile) and compares its selected interests to
+    other profiles in the database. A score is determined for each comparison
+    based on how many mutual interests there are
+    """
+    selected_interests = user_profile.selected_interests
+    user_score_pairs = {}
+    
+
+
+
 jinja_env = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
 )
-
 creators = "Asia Collins, Bethelehem Engeda, Zachary Rideaux, and Isabella Siu"
 
 
@@ -40,6 +53,7 @@ class GetStartedPage(webapp2.RequestHandler):
         template = jinja_env.get_template("templates/get-started.html")
         self.response.write(template.render(template_vars))
 
+
 class MainPage(webapp2.RequestHandler):
     def get(self):
         name = self.request.get("name") or "World"
@@ -51,7 +65,6 @@ class MainPage(webapp2.RequestHandler):
         # current_profile
         # Profile.query().filter(Profile.email==current_user.email()).get()
 
-
         template_vars = {
             "creators" : creators,
             "name" : name,
@@ -60,14 +73,9 @@ class MainPage(webapp2.RequestHandler):
 
         }
 
-        # print "Current Profile: "
-        # print current_profile
-        # print "Current User: "
-        # print current_user
-
-
         template = jinja_env.get_template("templates/main.html")
         self.response.write(template.render(template_vars))
+
 
 class LoginPage(webapp2.RequestHandler):
     def get(self):
@@ -89,11 +97,13 @@ class LoginPage(webapp2.RequestHandler):
 
         self.redirect("/main?key=" + current_profile_key.urlsafe())
 
+
 class UpdateDatabase(webapp2.RequestHandler):
     def post(self):
         current_user = users.get_current_user()
         current_profile = Profile.query().filter(Profile.email==current_user.email()).get()
         current_profile_key = current_profile.key
+
         # Update 'Your Current Interests' with input box
         input_interest = self.request.get("input-interest").lower()
         if input_interest:
@@ -112,23 +122,26 @@ class UpdateDatabase(webapp2.RequestHandler):
                 current_profile.interests.append(interest_key)
                 current_profile_key = current_profile.put()
 
-
-        # Put clicked interests in 'Your Selected Interests'
-        # TODO: prevent current selected interests from being selected again
+        # Places interests in 'Selected Interests', but prevents duplicates
         interest_key = self.request.get("interest_key")
         if interest_key:
             interest_key = ndb.Key(urlsafe=interest_key)
             if interest_key in current_profile.selected_interests:
                 current_profile.selected_interests.remove(interest_key)
+                print interest_key.get().interest_name + " removed from selected interests"
             else:
                 current_profile.selected_interests.append(interest_key)
-                # print interest_key.get().interest_name + " added to selected interests."
+                print interest_key.get().interest_name + " added to selected interests"
 
             current_profile_key = current_profile.put()
-            # selected_interest = Interest.query().filter(Profile.email==email_address).get()
+
+        # TODO: function that takes in current_profile and compares its selected
+        #       interests to others in the database
+        compare_users(current_profile)
 
         # Redirect to main
         self.redirect("/main?key=" + current_profile_key.urlsafe())
+
 
 class AboutUsPage(webapp2.RequestHandler):
     def get(self):
