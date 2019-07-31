@@ -6,11 +6,9 @@ from google.appengine.ext import ndb
 from google.appengine.api import users
 
 
-
 class Interest(ndb.Model):
     interest_name = ndb.StringProperty()
     interest_description = ndb.StringProperty()
-
 
 class Profile(ndb.Model):
     email = ndb.StringProperty()
@@ -23,11 +21,13 @@ class Profile(ndb.Model):
         repeated = True,
     )
 
+
 jinja_env = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
 )
 
 creators = "Asia Collins, Bethelehem Engeda, Zachary Rideaux, and Isabella Siu"
+
 
 class GetStartedPage(webapp2.RequestHandler):
     def get(self):
@@ -39,8 +39,6 @@ class GetStartedPage(webapp2.RequestHandler):
 
         template = jinja_env.get_template("templates/get-started.html")
         self.response.write(template.render(template_vars))
-
-
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
@@ -140,7 +138,6 @@ class AboutUsPage(webapp2.RequestHandler):
 
         template = jinja_env.get_template("templates/about-us.html")
         self.response.write(template.render(template_vars))
-
 
 
 app = webapp2.WSGIApplication([
