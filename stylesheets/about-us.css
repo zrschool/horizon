@@ -5,9 +5,45 @@
 }
 
 #profiles {
+<<<<<<< HEAD
   padding-top: 50px;
   display: flex;
   flex-flow: row nowrap;
   padding-bottom: 600px;
   justify-content: space-around
+=======
+  justify-content: center;
+  flex-flow: row wrap;
+  padding-bottom: 150px;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+}
+
+input[type=submit] {
+  background-color: #ff4b2b;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #e82502;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+>>>>>>> ea9b6f23af87283158a244c66269e198f4c31c36
 }
