@@ -22,19 +22,68 @@ class Profile(ndb.Model):
         kind = Interest,
         repeated = True,
     )
+    recommendations = ndb.KeyProperty(
+        kind = Interest,
+        repeated = True,
+    )
 
 
-def compare_users(user_profile):
+def get_random_profiles(user_profile):
     """
-    Takes a profile (user_profile) and compares its selected interests to
-    other profiles in the database. A score is determined for each comparison
-    based on how many mutual interests there are
+    Takes a profile (user_profile) and generates a random list of other
+    profiles in the database
     """
     selected_interests = user_profile.selected_interests
-    user_score_pairs = {}
-    
+    user_email = user_profile.email
+    all_profiles = Profile.query().filter(Profile.email!=user_email).fetch()
+    random_profiles = []
+    for i in range(len(all_profiles)):
+        random_profiles.append(all_profiles[random.randrange(len(all_profiles))])
+    return random_profiles
 
+def compare_interests(user_profile, random_profiles):
+    """
+    Given the user's profile, compare it to a list of randomly selected
+    profiles. A dictionary item of scores is made for each profile. A score is
+    determined for each comparison based on how many mutual interests there are
+    between user_profile and the random profile. Return the profile with the
+    highest score
+    """
+    email_profile_pairs = {}
+    email_score_pairs = {}
+    # Assign scores to each of the random profiles
+    for profile in random_profiles:
+        profile_score = 0
+        for interest in profile.interests:
+            if interest in user_profile.selected_interests:
+                profile_score += 1
+        email_profile_pairs.update({profile.email : profile})
+        email_score_pairs.update({profile.email : profile_score})
+    # Get dict item with highest score
+    # print email_profile_pairs
+    # print email_score_pairs
 
+    highest_scorer = max(email_score_pairs, key=email_score_pairs.get)
+    # print(highest_scorer, email_score_pairs[highest_scorer])
+    highest_scorer_profile = email_profile_pairs.get(highest_scorer)
+    return highest_scorer_profile
+
+def get_recommendations(user_profile, highest_scorer_profile):
+    """
+    Removes all mutual interests from highest scorer's interests to return
+    non-mutual interests
+    """
+    selected_interests = user_profile.selected_interests
+    other_users_interests = highest_scorer_profile.interests
+    non_mutual_interests = other_users_interests
+    for interest in selected_interests:
+        if interest in other_users_interests:
+            non_mutual_interests.remove(interest)
+    return non_mutual_interests
+
+def clear_existing_recommendations(current_profile):
+    for recommendation in current_profile.recommendations:
+        current_profile.recommendations.remove(recommendation)
 
 jinja_env = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
@@ -137,7 +186,14 @@ class UpdateDatabase(webapp2.RequestHandler):
 
         # TODO: function that takes in current_profile and compares its selected
         #       interests to others in the database
-        compare_users(current_profile)
+        clear_existing_recommendations(current_profile)
+        random_profiles = get_random_profiles(current_profile)
+        highest_scorer_profile = compare_interests(current_profile, random_profiles)
+        recommendations = get_recommendations(current_profile, highest_scorer_profile)
+
+        for recommendation in recommendations:
+            current_profile.recommendations.append(recommendation)
+            current_profile.put()
 
         # Redirect to main
         self.redirect("/main?key=" + current_profile_key.urlsafe())
