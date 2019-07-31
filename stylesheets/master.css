@@ -43,10 +43,11 @@ p {
   background-color: #a307eb;
   /* background-image: linear-gradient(to right, #ff4b2b, #f527b0, #a307eb); */
   color: #FFFFFF;
-  padding: 10px 20px 10px 20px;
+  padding: 20px 20px 10px 20px;
   box-shadow: 0 1px 2px rgba(0,0,0,0.00);
   transition: box-shadow 0.15s ease-in-out;
   margin-top: 10px;
+
 }
 
 #submission {
