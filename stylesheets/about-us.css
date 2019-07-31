@@ -5,16 +5,11 @@
 }
 
 #profiles {
-<<<<<<< HEAD
   padding-top: 50px;
+  padding-bottom: 150px;
   display: flex;
   flex-flow: row nowrap;
-  padding-bottom: 600px;
-  justify-content: space-around
-=======
-  justify-content: center;
-  flex-flow: row wrap;
-  padding-bottom: 150px;
+  justify-content: space-around;
 }
 
 input[type=text], select, textarea {
