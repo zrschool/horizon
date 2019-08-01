@@ -21,10 +21,12 @@ body {
   width: 80%;
   /* margin: 0px 10% 20px 10%; */
   align-self: center;
+  opacity: 1;
 }
 
 .button a {
   display: block;
+  opacity: 1;
 }
 
 .get-started-container {
@@ -36,11 +38,13 @@ body {
   display: flex;
   flex-flow: column wrap;
   margin: 20px;
-  background-color: #FFFFFF;
+  background-color: rgba(255,255,255,.8);
   border-radius: 5px;
   padding: 20px;
   justify-content: center;
-  opacity: 0.8;
+  /* opacity: 0.8; */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+
 }
 
 h1 {
