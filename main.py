@@ -195,11 +195,29 @@ class UpdateDatabase(webapp2.RequestHandler):
 
         # TODO: function that takes in current_profile and compares its selected
         #       interests to others in the database
+        # clear_existing_recommendations(current_profile)
+        # random_profiles = get_random_profiles(current_profile)
+        # highest_scorer_profile = compare_interests(current_profile, random_profiles)
+        # recommendations = get_recommendations(current_profile, highest_scorer_profile)
+        # for recommendation in recommendations:
+        #     print recommendation
+        #     current_profile.recommendations.append(recommendation)
+        #
+        # current_profile.put()
+        # Redirect to main
+        self.redirect("/main?key=" + current_profile_key.urlsafe())
+
+
+class GetRecommendations(webapp2.RequestHandler):
+    def post(self):
+        current_user = users.get_current_user()
+        current_profile = Profile.query().filter(Profile.email==current_user.email()).get()
+        current_profile_key = current_profile.key
+
         clear_existing_recommendations(current_profile)
         random_profiles = get_random_profiles(current_profile)
         highest_scorer_profile = compare_interests(current_profile, random_profiles)
         recommendations = get_recommendations(current_profile, highest_scorer_profile)
-        print "RECOMMENDATIONS: "
         for recommendation in recommendations:
             print recommendation
             current_profile.recommendations.append(recommendation)
@@ -223,6 +241,7 @@ app = webapp2.WSGIApplication([
     ("/", GetStartedPage),
     ("/main", MainPage),
     ("/update-database", UpdateDatabase),
+    ("/get-recommendations", GetRecommendations),
     ("/login", LoginPage),
     ("/about-us", AboutUsPage),
 ], debug=True)
