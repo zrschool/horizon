@@ -18,6 +18,9 @@ handlers:
   login: required
 - url: /.*
   script: main.app
+- url: /images
+  static_dir: images
+
 
 libraries:
 - name: jinja2
