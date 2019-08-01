@@ -39,14 +39,15 @@
 
 
                 <a href="#" onclick="this.parentNode.submit()" class="interest">
-                  <!-- interest model -->
                   {{key.get().interest_name}}
                 </a>
 
               </form>
             {% endfor %}
-            <!-- endloop -->
           </div>
+          <form class="button" action="/clear-interests" method="POST" style="text-align: center">
+            <a href="#" onclick="this.parentNode.submit()">Clear Interests</a>
+          </form>
         </div>
       </div>
       <div class="contentbox" id="rightbox">
@@ -59,9 +60,7 @@
 
                 <input type="hidden" name="selected_interest_key" value="{{key.urlsafe()}}"/>
 
-
                 <a href="#" onclick="this.parentNode.submit()" class="interest">
-
                   <!-- interest model -->
                   {{key.get().interest_name}}
                 </a>
@@ -69,6 +68,9 @@
               </form>
             {% endfor %}
           </div>
+          <form class="button" action="/clear-selected-interests" method="POST" style="text-align: center">
+            <a href="#" onclick="this.parentNode.submit()">Clear Selected Interests</a>
+          </form>
         </div>
         <div id="recommendations-box">
           People With Your Interests Also Like:

@@ -42,6 +42,7 @@ def get_random_profiles(user_profile):
     print "RANDOM PROFILES: " + str(random_profiles)
     return random_profiles
 
+
 def compare_interests(user_profile, random_profiles):
     """
     Given the user's profile, compare it to a list of randomly selected
@@ -69,6 +70,7 @@ def compare_interests(user_profile, random_profiles):
     highest_scorer_profile = email_profile_pairs.get(highest_scorer)
     return highest_scorer_profile
 
+
 def get_recommendations(user_profile, highest_scorer_profile):
     """
     Removes all mutual interests from highest scorer's interests to return
@@ -88,11 +90,19 @@ def get_recommendations(user_profile, highest_scorer_profile):
     print "AFTER " + str(non_mutual_interests)
     return non_mutual_interests
 
+
 def clear_existing_recommendations(current_profile):
-    # for recommendation in current_profile.recommendations:
-        # current_profile.recommendations.remove(recommendation)
     del current_profile.recommendations[:]
     current_profile.put()
+
+def clear_interests(current_profile):
+    del current_profile.interests[:]
+    current_profile.put()
+
+def clear_selected_interests(current_profile):
+    del current_profile.selected_interests[:]
+    current_profile.put()
+
 
 jinja_env = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
@@ -193,18 +203,6 @@ class UpdateDatabase(webapp2.RequestHandler):
 
             current_profile_key = current_profile.put()
 
-        # TODO: function that takes in current_profile and compares its selected
-        #       interests to others in the database
-        # clear_existing_recommendations(current_profile)
-        # random_profiles = get_random_profiles(current_profile)
-        # highest_scorer_profile = compare_interests(current_profile, random_profiles)
-        # recommendations = get_recommendations(current_profile, highest_scorer_profile)
-        # for recommendation in recommendations:
-        #     print recommendation
-        #     current_profile.recommendations.append(recommendation)
-        #
-        # current_profile.put()
-        # Redirect to main
         self.redirect("/main?key=" + current_profile_key.urlsafe())
 
 
@@ -239,6 +237,33 @@ class ClearRecommendations(webapp2.RequestHandler):
         # Redirect to main
         self.redirect("/main?key=" + current_profile_key.urlsafe())
 
+class ClearInterests(webapp2.RequestHandler):
+    def post(self):
+        current_user = users.get_current_user()
+        current_profile = Profile.query().filter(Profile.email==current_user.email()).get()
+        current_profile_key = current_profile.key
+
+        clear_interests(current_profile)
+        clear_selected_interests(current_profile)
+
+        current_profile.put()
+        # Redirect to main
+        self.redirect("/main?key=" + current_profile_key.urlsafe())
+
+
+class ClearSelectedInterests(webapp2.RequestHandler):
+    def post(self):
+        current_user = users.get_current_user()
+        current_profile = Profile.query().filter(Profile.email==current_user.email()).get()
+        current_profile_key = current_profile.key
+
+
+        clear_selected_interests(current_profile)
+
+        current_profile.put()
+        # Redirect to main
+        self.redirect("/main?key=" + current_profile_key.urlsafe())
+
 
 class AboutUsPage(webapp2.RequestHandler):
     def get(self):
@@ -256,6 +281,8 @@ app = webapp2.WSGIApplication([
     ("/update-database", UpdateDatabase),
     ("/get-recommendations", GetRecommendations),
     ("/clear-recommendations", ClearRecommendations),
+    ("/clear-selected-interests", ClearSelectedInterests),
+    ("/clear-interests", ClearInterests),
     ("/login", LoginPage),
     ("/about-us", AboutUsPage),
 ], debug=True)
