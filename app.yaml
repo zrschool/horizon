@@ -16,8 +16,12 @@ handlers:
 - url: /login
   script: main.app
   login: required
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
 - url: /.*
   script: main.app
+
 
 libraries:
 - name: jinja2
