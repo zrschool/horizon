@@ -1,14 +1,66 @@
 body {
   background-color: white;
+  margin: 0px;
+
+}
+
+#logo-photo {
+  padding-top: 20px;
 }
 
 #getstarted {
+  display: flex;
+  flex-flow: column wrap;
   width: 100%;
   text-align: center;
-  padding: 20px;
+  /* padding: 20px; */
   padding-bottom: 750px;
+}
+
+.button {
+  width: 300px;
+  margin: 0px 10% 20px 10%;
+  align-self: center;
 }
 
 .button a {
   display: block;
+}
+
+.get-started-container {
+  width: 30%;
+
+}
+
+#who-we {
+  display: flex;
+  flex-flow: column wrap;
+  margin: 20px;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  padding: 20px;
+  justify-content: center;
+  opacity: 0.8;
+}
+
+h1 {
+  padding-bottom: 20px;
+  margin: 0px;
+}
+
+#horizon-background {
+  display: flex;
+  margin-top: 20px;
+  margin-left: 0px;
+  width: 100%;
+  height: 300px;
+  justify-content: space-around;
+  min-width: 100%;
+  background-size: 100% 500px;
+  /* background-repeat: no-repeat; */
+  background-image: url("https://i.imgur.com/swHzJgP.jpg?1");
+}
+
+#blank-space {
+
 }
