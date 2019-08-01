@@ -227,6 +227,19 @@ class GetRecommendations(webapp2.RequestHandler):
         self.redirect("/main?key=" + current_profile_key.urlsafe())
 
 
+class ClearRecommendations(webapp2.RequestHandler):
+    def post(self):
+        current_user = users.get_current_user()
+        current_profile = Profile.query().filter(Profile.email==current_user.email()).get()
+        current_profile_key = current_profile.key
+
+        clear_existing_recommendations(current_profile)
+
+        current_profile.put()
+        # Redirect to main
+        self.redirect("/main?key=" + current_profile_key.urlsafe())
+
+
 class AboutUsPage(webapp2.RequestHandler):
     def get(self):
         template_vars = {
@@ -242,6 +255,7 @@ app = webapp2.WSGIApplication([
     ("/main", MainPage),
     ("/update-database", UpdateDatabase),
     ("/get-recommendations", GetRecommendations),
+    ("/clear-recommendations", ClearRecommendations),
     ("/login", LoginPage),
     ("/about-us", AboutUsPage),
 ], debug=True)
