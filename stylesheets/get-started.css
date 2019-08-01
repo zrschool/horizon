@@ -1,6 +1,15 @@
+body {
+  background:
+     url(https://i.imgur.com/QUXYuBn.jpg)    /* image */
+     top center / 2500px 1000px /* position / size */
+     no-repeat                /* repeat */
+     fixed                    /* attachment */
+     padding-box              /* origin */
+     content-box              /* clip */
+     red;                     /* color */
+}
 #getstarted {
   width: 100%;
-  background-color: #FFFFFF;
   text-align: center;
   padding: 20px;
   padding-bottom: 750px
