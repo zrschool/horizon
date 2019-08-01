@@ -40,6 +40,7 @@ body {
   border-radius: 5px;
   padding: 20px;
   justify-content: center;
+  opacity: 0.8;
 }
 
 h1 {
