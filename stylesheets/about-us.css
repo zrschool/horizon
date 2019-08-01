@@ -1,17 +1,22 @@
-
-
 #about-us {
   padding-left: 50px;
   padding-right: 50px;
   background: white;
 }
 
+
 #profiles {
   padding-top: 50px;
   padding-bottom: 150px;
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
+  flex-flow: row wrap;
+  justify-content: center;
+  text-align: center;
+}
+
+img {
+  width: 200px;
+  padding: 5px;
 }
 
 input[type=text], select, textarea {
