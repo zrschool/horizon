@@ -10,9 +10,16 @@
   margin-bottom: 20px;
 }
 
+#how-it-works-box {
+  background-color: #EEEEEE;
+  padding: 20px;
+  /* margin-bottom: 20px; */
+}
+
 #your-interests-box {
   background-color: #EEEEEE;
   padding: 20px;
+  margin-bottom: 20px;
 }
 
 #selected-interests-box {
@@ -24,6 +31,11 @@
 #recommendations-box {
   background-color: #FFFFFF;
   padding: 20px;
+}
+
+#tutorial {
+  margin-top: 10px;
+  font-size: 10pt;
 }
 
 .interests {
@@ -39,7 +51,7 @@
 
 .interest {
   color: #FFFFFF;
-  padding: 3px 5px 3px 5px;
+  padding: 3px 8px 3px 8px;
   margin: 5px;
   background-color: #f527b0;
   /* background-image: linear-gradient(to right, #ff4b2b, #f527b0, #a307eb); */
@@ -49,7 +61,17 @@
 
 }
 
-#header
-{
-  font: copperplate;
+.interest:hover {
+  color: #FFFFFF;
+  margin: 5px;
+  background-color: #a307eb;
+  /* background-image: linear-gradient(to right, #ff4b2b, #f527b0, #a307eb); */
+  border-radius: 5px;
+  /* margin-top: 100px; */
+  /* margin-bottom: 100px; */
+
+}
+
+.selected {
+  background-color: #24c97c;
 }

@@ -37,7 +37,7 @@ def get_random_profiles(user_profile):
     user_email = user_profile.email
     all_profiles = Profile.query().filter(Profile.email!=user_email).fetch()
     random_profiles = []
-    for i in range(3):
+    for i in range(5):
         random_profiles.append(all_profiles[random.randrange(len(all_profiles))])
     print "RANDOM PROFILES: " + str(random_profiles)
     return random_profiles
@@ -133,12 +133,14 @@ class MainPage(webapp2.RequestHandler):
         # current_profile
         # Profile.query().filter(Profile.email==current_user.email()).get()
 
+        is_selected = "selected"
+
         template_vars = {
             "creators" : creators,
             "name" : name,
             "current_user" : current_user,
             "current_profile" : current_profile,
-
+            "is_selected" : is_selected
         }
 
         template = jinja_env.get_template("templates/main.html")

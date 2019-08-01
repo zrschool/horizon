@@ -38,7 +38,7 @@
                 <input type="hidden" name="interest_key" value="{{key.urlsafe()}}"/>
 
 
-                <a href="#" onclick="this.parentNode.submit()" class="interest">
+                <a href="#" onclick="this.parentNode.submit()">
                   {{key.get().interest_name}}
                 </a>
 
@@ -48,6 +48,11 @@
           <form class="button" action="/clear-interests" method="POST" style="text-align: center">
             <a href="#" onclick="this.parentNode.submit()">Clear Interests</a>
           </form>
+        </div>
+        <div id="how-it-works-box">
+          <p>How It Works:</p>
+          <p id="tutorial">Enter an interest of yours in the box above to add them to your Current Interests.</p>
+          <p id="tutorial">Click on a few of those interests to select them and then click "Get New Recommendations" to refresh your recommendations.</p>
         </div>
       </div>
       <div class="contentbox" id="rightbox">
@@ -60,7 +65,7 @@
 
                 <input type="hidden" name="selected_interest_key" value="{{key.urlsafe()}}"/>
 
-                <a href="#" onclick="this.parentNode.submit()" class="interest">
+                <a href="#" onclick="this.parentNode.submit()">
                   <!-- interest model -->
                   {{key.get().interest_name}}
                 </a>
@@ -81,7 +86,7 @@
 
                 <input type="hidden" name="interest_key" value="{{key.urlsafe()}}"/>
 
-                <span class="interest">
+                <span>
                   <!-- interest model -->
                   {{key.get().interest_name}}
                 </span>
