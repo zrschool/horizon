@@ -3,6 +3,7 @@
 #about-us {
   padding-left: 50px;
   padding-right: 50px;
+  background: white;
 }
 
 #profiles {
@@ -42,15 +43,4 @@ input[type=submit]:hover {
   background-color: #f2f2f2;
   padding: 20px;
 
-}
-
-body {
-  background:
-     url(https://i.imgur.com/QUXYuBn.jpg)    /* image */
-     top center / 2500px 1000px /* position / size */
-     no-repeat                /* repeat */
-     fixed                    /* attachment */
-     padding-box              /* origin */
-     content-box              /* clip */
-     red;                     /* color */
 }
