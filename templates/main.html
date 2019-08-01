@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Project</title>
+    <title>Horizon</title>
     <link rel="stylesheet" href="stylesheets/master.css">
     <link rel="stylesheet" href="stylesheets/main.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,900&display=swap" rel="stylesheet">
@@ -13,7 +13,9 @@
     </div>
     <div id="body">
       <div class="contentbox" id="leftbox">
-        Signed in as: {{current_user.email()}} | ID: {{current_user.user_id()}}
+        <div id="logged-in-box" style="text-align: center">
+          Signed in as {{current_user.email()}}
+        </div>
         <!-- Has form to append an interest to "Your Interests" -->
         <div id="add-interest-box">
           Add New Interest:
@@ -77,7 +79,6 @@
 
                 <input type="hidden" name="interest_key" value="{{key.urlsafe()}}"/>
 
-
                 <span class="interest">
                   <!-- interest model -->
                   {{key.get().interest_name}}
@@ -86,9 +87,12 @@
               </form>
             {% endfor %}
           </div>
-          <div class="button" action="/update-database" method="POST" style="text-align: center">
+          <form class="button" action="/get-recommendations" method="POST" style="text-align: center">
             <a href="#" onclick="this.parentNode.submit()">Get New Recommendations</a>
-          </div>
+          </form>
+          <form class="button" action="/clear-recommendations" method="POST" style="text-align: center">
+            <a href="#" onclick="this.parentNode.submit()">Clear Recommendations</a>
+          </form>
         </div>
       </div>
     </div>
