@@ -37,7 +37,7 @@ p {
 
 #body #rightbox {
   background-color: #EEEEEE;
-  padding-bottom: 500px;
+  /* padding-bottom: 400px; */
 }
 
 .button {
@@ -51,7 +51,7 @@ p {
 }
 
 .button a {
-  display: block; 
+  display: block;
 }
 
 #submission {
