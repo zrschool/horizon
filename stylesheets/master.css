@@ -50,6 +50,10 @@ p {
   margin-top: 20px;
 }
 
+.button a {
+  display: block; 
+}
+
 #submission {
   display: flex;
   justify-content: center;
