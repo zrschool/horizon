@@ -13,7 +13,9 @@
     </div>
     <div id="body">
       <div class="contentbox" id="leftbox">
-        Signed in as: {{current_user.email()}} | ID: {{current_user.user_id()}}
+        <div id="logged-in-box" style="text-align: center">
+          Signed in as {{current_user.email()}}
+        </div>
         <!-- Has form to append an interest to "Your Interests" -->
         <div id="add-interest-box">
           Add New Interest:
@@ -87,6 +89,9 @@
           </div>
           <form class="button" action="/get-recommendations" method="POST" style="text-align: center">
             <a href="#" onclick="this.parentNode.submit()">Get New Recommendations</a>
+          </form>
+          <form class="button" action="/clear-recommendations" method="POST" style="text-align: center">
+            <a href="#" onclick="this.parentNode.submit()">Clear Recommendations</a>
           </form>
         </div>
       </div>
