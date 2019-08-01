@@ -76,16 +76,23 @@ def get_recommendations(user_profile, highest_scorer_profile):
     """
     selected_interests = user_profile.selected_interests
     other_users_interests = highest_scorer_profile.interests
-    non_mutual_interests = other_users_interests
+    non_mutual_interests = []
+    for i in range(len(other_users_interests)):
+        non_mutual_interests.append(other_users_interests[i])
+    print "BEFORE " + str(non_mutual_interests)
     for interest in selected_interests:
         if interest in other_users_interests:
             non_mutual_interests.remove(interest)
-
+        # if interest in user_profile.interests:
+        #     non_mutual_interests.remove(interest)
+    print "AFTER " + str(non_mutual_interests)
     return non_mutual_interests
 
 def clear_existing_recommendations(current_profile):
-    for recommendation in current_profile.recommendations:
-        current_profile.recommendations.remove(recommendation)
+    # for recommendation in current_profile.recommendations:
+        # current_profile.recommendations.remove(recommendation)
+    del current_profile.recommendations[:]
+    current_profile.put()
 
 jinja_env = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
@@ -192,11 +199,12 @@ class UpdateDatabase(webapp2.RequestHandler):
         random_profiles = get_random_profiles(current_profile)
         highest_scorer_profile = compare_interests(current_profile, random_profiles)
         recommendations = get_recommendations(current_profile, highest_scorer_profile)
-
+        print "RECOMMENDATIONS: "
         for recommendation in recommendations:
+            print recommendation
             current_profile.recommendations.append(recommendation)
-            current_profile.put()
 
+        current_profile.put()
         # Redirect to main
         self.redirect("/main?key=" + current_profile_key.urlsafe())
 
