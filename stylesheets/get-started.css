@@ -32,7 +32,7 @@ body {
 
 .get-started-container {
   width: 30%;
-
+  position: absolute;
 }
 
 #who-we {
