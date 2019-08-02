@@ -1,18 +1,22 @@
 #about-us {
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 100px;
+  padding-right: 100px;
   background: white;
 }
 
+#contact {
+  padding-bottom: 20px;
+}
 
 #profiles {
   padding-top: 50px;
-  padding-bottom: 150px;
+  padding-bottom: 50px;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   text-align: center;
 }
+
 
 img {
   width: 200px;
